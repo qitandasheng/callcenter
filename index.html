@@ -63,9 +63,55 @@
             color:#5b5b5b;
 		}
 	</style>
+<script type="text/javascript" language="javascript"> 
+
+  /**连接服务器**/
+  function loadServer(){
+        call_server.cdtProCcInitInfo();
+		var ret = call_server.cdtProCcConnectToServer();
+		alert(ret);
+    }
+
+  /**接听**/
+	function sp_btnAnserCall()
+	{  
+		var ret = call_server.cdtProCcAnswerCall();
+		alert(ret);
+    }
+
+	 /**断开**/
+	function sp_btnClearConnection()
+	{  
+		var ret = call_server.cdtProCcClearConnection();
+		alert(ret);
+    }
 
 
-<body onLoad="ctiServerStart();" OnUnload="WindowClose();" onBeforeUnload="WindowClose();" onContextMenu="return false;" >
+	 /**呼叫转移**/
+	function sp_btnTransferCall()
+	{  
+		var ret = call_server.cdtProCcTransferCall('800');
+		alert(ret);
+    }
+
+		 /**挂起**/
+	function sp_btntogHoldding()
+	{  
+		//var ret = call_server.cdtProCcTransferCall('800');
+		//alert(ret);
+    }
+
+
+		/**离开**/
+	function sp_togLeavingClick()
+	{  
+		//var ret = call_server.cdtProCcTransferCall('800');
+		//alert(ret);
+    }
+
+    </script>
+
+<body  onload="loadServer()">
 <div style="display:none;">
 	<input type="hidden" id="hidSPEventStatus"/>
 	<input type="hidden" id="hidAfterCallWork"/>
@@ -74,10 +120,7 @@
 		<input type='hidden' id="ctmpResult" rows="9" cols="90" /> 
     	<table border="0" cellpadding="0" cellspacing="0" width="100%">
     		<tr>
-    			<td width="200px" height="70px" align="left" valign="top">
-    				<img src="images/top/back.logo.jpg" align="absmiddle" alt=""></img>
-    			</td>
-    			<td align="left" valign="middle">
+    		<td align="left" valign="middle">
     				<table border="0" cellpadding="0" cellspacing="0" align="left">
     					<tr>
     						<td width="105px" valign="middle" align="left" height="20px">
@@ -85,21 +128,21 @@
     						<td width="48px" valign="middle" align="left" rowspan="2">
     							<img id="sp_btnDial" class="spButton" src="images/top/softphone/btnDial_01.jpg" title='拨号键盘' onClick="sp_btnDialClick()" style="cursor:pointer;" /></td>
     						<td width="48px" valign="middle" align="left" rowspan="2">
-    							<img id="sp_btnAnswer" class="spButton" src="images/top/softphone/btnAnswer_02.jpg" title='接听' style="cursor:pointer;" /></td>
+    							<img id="sp_btnAnswer" class="spButton" src="images/top/softphone/btnAnswer_02.jpg" title='接听' style="cursor:pointer;" onClick="sp_btnAnserCall();" /></td>
     						<td width="48px" valign="middle" align="left" rowspan="2">
-    							<img id="sp_btnHangup" class="spButton" src="images/top/softphone/btnHangup_01.jpg" title='断开' onClick="sp_btnHangupClick();" style="cursor:pointer;" /></td>
-    						<td width="48px" valign="middle" align="left" rowspan="2">
+    							<img id="sp_btnHangup" class="spButton" src="images/top/softphone/btnHangup_01.jpg" title='断开' onClick="sp_btnClearConnection();" style="cursor:pointer;" /></td>
+    						<!--<td width="48px" valign="middle" align="left" rowspan="2">
     							<img id="sp_btnExchange" class="spButton" src="images/top/softphone/exchange_01.gif" title='协议' style="cursor:pointer;" /></td>	
     						<td width="48px" valign="middle" align="left" rowspan="2">
-    							<img id="sp_btnConference" class="spButton" src="images/top/softphone/btnConference_02.jpg" title='3方会议' style="cursor:pointer;" /></td>
+    							<img id="sp_btnConference" class="spButton" src="images/top/softphone/btnConference_02.jpg" title='3方会议' style="cursor:pointer;" /></td>-->
     						<td width="58px" valign="middle" align="left" rowspan="2">
-    							<img id="sp_btnTransfer" class="spButton" src="images/top/softphone/btnTransfer_02.jpg" title='呼叫转移' style="cursor:pointer;" /></td>
+    							<img id="sp_btnTransfer" class="spButton" src="images/top/softphone/btnTransfer_02.jpg" title='呼叫转移' style="cursor:pointer;" onClick="sp_btnTransferCall();"/></td>
     						<td width="35px" valign="middle" align="left" rowspan="2">
-    							<img id="sp_togHoldding" class="spToggle" src="images/top/softphone/togHoldding_01.jpg" title='挂起' style="cursor:pointer;" /></td>
+    							<img id="sp_togHoldding" class="spToggle" src="images/top/softphone/togHoldding_01.jpg" title='挂起' style="cursor:pointer;" onClick="sp_btntogHoldding();"/></td>
     						<td width="34px" valign="middle" align="left" rowspan="2">
     							<img id="sp_togLeaving" class="spToggle" src="images/top/softphone/togLeaving_01.jpg" title='离开' onClick="sp_togLeavingClick()" style="cursor:pointer;" /></td>
-    						<td width="36px" valign="middle" align="left" rowspan="2">
-    							<img id="sp_togAfterCallWork" class="spToggle" src="images/top/softphone/togAfterCallWork_01.jpg" title='后处理' onClick="sp_togAfterCallWorkClick();" style="cursor:pointer;" /></td>
+    						<!--<td width="36px" valign="middle" align="left" rowspan="2">
+    							<img id="sp_togAfterCallWork" class="spToggle" src="images/top/softphone/togAfterCallWork_01.jpg" title='后处理' onClick="sp_togAfterCallWorkClick();" style="cursor:pointer;" /></td>-->
     					</tr>
     					<tr>
     						<td width="105px" valign="middle" align="left" height="20px">
@@ -107,56 +150,12 @@
     					</tr>
     				</table>
     			</td>
-    			<td width="200px" height="70px" align="right" valign="top">
-    				<div style="height: 5px; font-size:2px;"></div>
-    				<div id="topMenuBar" align="right">
-			    		<table border="0" cellpadding="0" cellspacing="0" align="right">
-							<tr>
-								<td width="56px" valign="top" align="center" height="20px">
-									<img src="images/top/topMenu/top.Home.jpg" style="cursor:pointer;"  /></td>
-								<td width="56px" valign="top" align="center">
-									<img src="images/top/topMenu/top.qna.gif" style="cursor:pointer;" id="qna" onClick="showQNA();"/></td>
-								<td width="56px" valign="top" align="center">
-									<img src="images/top/topMenu/top.Logout.jpg" style="cursor:pointer;" onClick="OnLogOut()" /></td>
-							</tr>
-							<tr>
-								<td colspan="3" height="40px"  valign="bottom" align="right">
-									<div style="padding-right:12px;"><img src="images/top/systemTitle.jpg" width="141" height="14"/></div>
-								</td>
-							</tr>
-						</table>
-			    	</div>
-    			</td>
+    			
     		</tr>
     	</table>
-    </div>
-    <div class="callJobStat">
-    	<table border="0" cellpadding="0" cellspacing="0" width="100%"
-    		style="font-size:12px; color:#212e7f;font-family:微软雅黑, Tahoma;">
-    		<tr>
-    			<td width="160px" height="26px" align="left" valign="middle">
-    				<img src="/images/top/callJobStatus/bar.title.jpg" align="absmiddle" alt=""></img>
-    			</td>
-    			<td align="left" valign="middle" style="color:#5b5b5b;">
-    				<ul id="ulCallJobStat">
-    					<li>【</li>
-    					<li id='outboundList1' class="outboundListType" style="cursor:pointer;">未 决：<span style="font-weight:bold;cursor:pointer;"><b id='outboundList1Value'>0</b></span></li>
-    					<li id='outboundList3' class="outboundListType" style="cursor:pointer;">回 拨：<span style="font-weight:bold;cursor:pointer;"><b id='outboundList3Value'>0</b></span></li>
-    					<li id='outboundList2' class="outboundListType" style="cursor:pointer;">回 访：<span style="font-weight:bold;cursor:pointer;"><b id='outboundList2Value'>0</b></span></li>
-    					<li id='outboundList4' class="outboundListType" style="cursor:pointer;">点检报告：<span style="font-weight:bold;cursor:pointer;"><b id='outboundList4Value'>0</b></span></li>
-    					<li id='outboundList5' class="outboundListType" style="cursor:pointer;">巡 检：<span style="font-weight:bold;cursor:pointer;"><b id='outboundList5Value'>0</b></span></li>
-    					<li id='outboundList6' class="outboundListType" style="cursor:pointer;">Rework：<span style="font-weight:bold;cursor:pointer;"><b id='outboundList6Value'>0</b></span></li>
-    					<li id='outboundList7' class="outboundListType" style="cursor:pointer;">故障预警：<span style="font-weight:bold;cursor:pointer;"><b id='outboundList7Value'>0</b></span></li>
-    					<li id='outboundList8' class="outboundListType" style="cursor:pointer;">投诉：<span style="font-weight:bold;cursor:pointer;"><b id='outboundList8Value'>0</b></span></li>
-    					<li>】</li>
-    					<li>登陆ID : ${sessionScope.userMaster.userLoginID}&nbsp;(${sessionScope.userMaster.userName})     </li>
-    					<li>&nbsp;分机号码 : ${sessionScope.userMaster.userCtiNum}</li>
-    					<li style="display: none;">&nbsp 等待客户 :</li>
-    					<li id="waitCount"></li>
-    				</ul>
-    			</td>
-    		</tr>
-    	</table>
-    </div>
+    </div>  
 </body>
 </html>
+<object id="call_server" classid="clsid:72EFD880-105A-4854-83A9-9E70F028F985" CODEBASE="" 
+style="LEFT: 0px; VISIBILITY: visible; TOP: 0px; Width:0px; Height:0px; " >
+ </object>
