@@ -1,0 +1,402 @@
+ <%--
+ * =============================================================
+ * Copyright (c) 2013 by SZDT(北京神州大唐科技有限公司)
+ *
+ * File 		: ProLink Application Test.html
+ * Company		: 北京神州大唐科技有限公司(http://www.cn-cdt.com)
+ * Version		: 1.2
+ * Description  : "prolink test."
+ * =============================================================
+ * 开发:              孙留名
+ * -------------------------------------------------------------
+ * 2013/10/30
+ * =============================================================
+ --%>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<html>
+<head>
+<title>Prolink ActiveX Application Test</title>
+<style>
+	BODY	{ background-color:#eeeeee; leftmargin=5; topmargin=5;}
+	TABLE	{ font-size:12; }
+	BUTTON	{ width:250; font-size:12; }
+	INPUT	{ font-size:12; }
+	SELECT	{ font-size:12; }
+</style>
+<script>
+	/******************************************************************
+	Variable Name: iGateID
+	Description : nxcapi gate id
+	******************************************************************/
+	var iGateID = 0;
+
+	/******************************************************************
+	Variable Name: iInvokeID
+	Description : nxcapi invode id
+	******************************************************************/
+	var iInvokeID = 0;
+
+	/******************************************************************
+	Function Name: callCubeMethod(func)
+	Parameter  : func
+	Return Value :
+	Description : prolink method
+	******************************************************************/
+	function callCubeMethod(func) 
+	{
+		// prolink function
+		switch (func)
+		{
+			case "cdtProCcInitInfo":
+						ret = cdtSoftPhone.cdtProCcInitInfo();
+						break;
+			case "cdtProCcConnectToServer":
+						ret = cdtSoftPhone.cdtProCcConnectToServer();
+						break;
+			case "cdtProCcDisconnectFromServer":
+						ret = cdtSoftPhone.cdtProCcDisconnectFromServer();
+						break;
+			case "cdtProCcAgentLogin":
+						ret = cdtSoftPhone.cdtProCcAgentLogin();
+						break;	
+			case "cdtProCcAgentLogout":
+						ret = cdtSoftPhone.cdtProCcAgentLogout();
+						break;
+			case "cdtProCcAgentReady":
+						ret = cdtSoftPhone.cdtProCcAgentReady();
+						break;	
+			case "cdtProCcAgentNotReady":
+						ret = cdtSoftPhone.cdtProCcAgentNotReady(1);
+						break;	
+			case "cdtProCcAgentRest":
+						ret = cdtSoftPhone.cdtProCcAgentRest(1);
+						break;	
+			case "cdtProCcAgentAfterCallFinishing":
+						ret = cdtSoftPhone.cdtProCcAgentAfterCallFinishing(1);
+						break;
+			case "cdtProCcAnswerCall":
+						ret = cdtSoftPhone.cdtProCcAnswerCall();
+						break;
+			case "cdtProCcClearConnection":
+						ret = cdtSoftPhone.cdtProCcClearConnection();
+						break;
+			case "cdtProCcHoldCall":
+						ret = cdtSoftPhone.cdtProCcHoldCall();
+						break;
+			case "cdtProCcRetrieveCall":
+						ret = cdtSoftPhone.cdtProCcRetrieveCall();
+						break;
+			case "cdtProCcCallOut":
+						ret = cdtSoftPhone.cdtProCcCallOut("123");
+						break;
+			case "cdtProCcTransferCall":
+						ret = cdtSoftPhone.cdtProCcTransferCall("123");
+						break;
+		}
+
+		// -> document.all.cubeResult
+		if (ret==1)
+		{
+			document.all.cubeResult.innerText = func + " succeeded.\n" + document.all.cubeResult.innerText;
+		}
+		else
+		{
+			document.all.cubeResult.innerText = func + " failed["+ret+"].\n" + document.all.cubeResult.innerText;
+		}
+
+	}
+
+
+	/******************************************************************
+	Variable Name: 
+	Parameter  : 
+	Return Value :
+	Description : event kind
+	******************************************************************/
+var proCcEvent_Transferred = 5001;
+var proCcEvent_Established = 5002;
+var proCcEvent_ConnectionCleared = 5003;
+var proCcEvent_CallCleared = 5004;
+var proCcEvent_Conferenced = 5005;
+var proCcEvent_Held = 5006;
+var proCcEvent_Delivered = 5007;
+var proCcEvent_Diverted = 5008;
+var proCcEvent_Originated = 5009;
+var proCcEvent_Failed = 5010;
+var proCcEvent_ServiceInitiated = 5011;
+var proCcEvent_NetworkReached = 5012;
+var proCcEvent_FetchHeld = 5013;
+var proCcEvent_Queued = 5014;
+var proCcEvent_SpeakerVolume = 5020;
+var proCcEvent_MessageWaiting = 5021;
+var proCcEvent_AutoAnswer = 5022;
+var proCcEvent_DoNotDisturb = 5023;
+var proCcEvent_Forwarding = 5024;
+var proCcEvent_CallInformation = 5025;
+var proCcEvent_Mute = 5026;
+var proCcEvent_MicrophoneMute = 5027;
+var proCcEvent_Login = 5031;
+var proCcEvent_NotReady = 5032;
+var proCcEvent_Ready = 5033;
+var proCcEvent_AfterCallFinishing = 5034;
+var proCcEvent_AgentRest = 5035;
+var proCcEvent_Logout = 5036;
+var proCcEvent_OutOfService = 5041;
+var proCcEvent_BackInService = 5042;
+var proCcEvent_Private = 5051;
+var proCcEvent_ReviewEvent = 5052;
+var proCcEvent_StopEvent = 5053;
+var proCcEvent_VoiceAttributesChange = 5054;
+var proCcEvent_RecordEvent = 5055;
+var proCcEvent_PlayEvent = 5056;
+var proCcEvent_SuspendRecordEven = 5057;
+var proCcEvent_SuspendPlayEvent = 5058;
+var proCcEvent_RouteRequest = 5059;
+var proCcEvent_RouteEnd = 5060;
+var proCcEvnet_IvrRouteRequest = 5061;
+var proCcEvent_IvrRouteEnd = 5062;
+var proCcEvent_IvrQueueConf = 5063;
+var proCcEvent_Recording = 5064;
+
+
+</script>
+
+
+<SCRIPT language="javascript" FOR="cdtSoftPhone" EVENT="GetEvent(event,str)">
+
+
+	// GetEvent
+	switch(event)
+	{
+			case  proCcEvent_Transferred:
+				break;
+			case  proCcEvent_Established:
+				break;
+			case  proCcEvent_ConnectionCleared:
+				break;
+			case  proCcEvent_CallCleared:
+				break;
+			case  proCcEvent_Conferenced:
+				break;
+			case  proCcEvent_Held:
+				break;
+			case  proCcEvent_Delivered:
+				break;
+			case  proCcEvent_Diverted:
+				break;
+			case  proCcEvent_Originated:
+				break;
+			case  proCcEvent_Failed:
+				break;
+			case  proCcEvent_ServiceInitiated:
+				break;
+			case  proCcEvent_NetworkReached:
+				break;
+			case  proCcEvent_FetchHeld:
+				break;
+			case  proCcEvent_Queued:
+				break;
+			case  proCcEvent_SpeakerVolume:
+				break;
+			case  proCcEvent_MessageWaiting:
+				break;
+			case  proCcEvent_AutoAnswer:
+				break;
+			case  proCcEvent_DoNotDisturb:
+				break;
+			case  proCcEvent_Forwarding:
+				break;
+			case  proCcEvent_CallInformation:
+				break;
+			case  proCcEvent_Mute:
+				break;
+			case  proCcEvent_MicrophoneMute:
+				break;
+			case  proCcEvent_Login:
+				break;
+			case  proCcEvent_NotReady:
+				break;
+			case  proCcEvent_Ready:
+				break;
+			case  proCcEvent_AfterCallFinishing:
+				break;
+			case  proCcEvent_AgentRest:
+				break;
+			case  proCcEvent_Logout:
+				break;
+			case  proCcEvent_OutOfService:
+				break;
+			case  proCcEvent_BackInService:
+				break;
+			case  proCcEvent_Private:
+				break;
+			case  proCcEvent_ReviewEvent:
+				break;
+			case  proCcEvent_StopEvent:
+				break;
+			case  proCcEvent_VoiceAttributesChange:
+				break;
+			case  proCcEvent_RecordEvent:
+				break;
+			case  proCcEvent_PlayEvent:
+				break;
+			case  proCcEvent_SuspendRecordEven:
+				break;
+			case  proCcEvent_SuspendPlayEvent:
+				break;
+			case  proCcEvent_RouteRequest:
+				break;
+			case  proCcEvent_RouteEnd:
+				break;
+			case  proCcEvnet_IvrRouteRequest:
+				break;
+			case  proCcEvent_IvrRouteEnd:
+				break;
+			case  proCcEvent_IvrQueueConf:
+				break;
+			case  proCcEvent_Recording:
+				break;
+			default:
+				break;
+	}
+		document.all.cubeResult.innerText = "Event["+event+"] str:<"+str+">..\n" + document.all.cubeResult.innerText;
+</SCRIPT>
+</head>
+<body>
+<table cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td colspan="3" align="center" >
+			<fieldset>
+				<legend><b>Title</b></legend>
+				<table cellpadding="1" cellspacing="1">
+					<tr>
+						<td>
+							<h4>Prolink ActiveX Application Test</h4>
+						</td>
+					</tr>
+				</table>
+			</fieldset>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="3">
+			<fieldset>
+				<legend><b>Object</b></legend>
+				<table cellpadding="1" cellspacing="1">
+					<tr>
+						<td>
+							<!--
+								<<Function Object>>
+								1. ID 		= "cdtSoftPhone"
+								2. Classid = "clsid:3598E614-E72D-4EDA-864C-E1547FDEE2CD"
+								3. Codebase = NXCAPI3X.cab#version=5,0,0,79
+							-->
+							<OBJECT 
+								id		 = "cdtSoftPhone"
+								classid	 = "clsid:72EFD880-105A-4854-83A9-9E70F028F985">
+								<span style="color:red;font-size:12">(1) Component failed to load! -- Please check settings.</span>
+							</OBJECT>
+							
+						</td>
+					</tr>
+				</table>
+			</fieldset>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="3">
+			<fieldset>
+				<legend><b>Result</b></legend>
+				<table cellpadding="1" cellspacing="1">
+					<tr>
+						<td><textArea id="cubeResult" rows="9" cols="90"></textArea></td>
+					</tr>
+				</table>
+			</fieldset>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td>
+			<fieldset>
+				<legend><b>Main Function</b></legend>
+					<table cellpadding="1" cellspacing="1">
+						<tr>
+							<td><button name="cdtProCcInitInfo" onclick="callCubeMethod(this.name)" style="width:300">cdtProCcInitInfo(初始始化函数)</button></td>
+						</tr>
+						<tr>
+							<td><button name="cdtProCcConnectToServer" onclick="callCubeMethod(this.name)" style="width:300">cdtProCcConnectToServer(连接CTI函数)</button></td>
+							<td><button name="cdtProCcDisconnectFromServer" onclick="callCubeMethod(this.name)" style="width:300">cdtProCcDisconnectFromServer(断开与CTI连接)</button></td>
+						</tr>
+						<tr>
+							<td colspan="2">&nbsp;</td>
+						</tr>
+					</table>
+			</fieldset>
+		</td>
+
+	</tr>
+	<tr>
+		<td valign="top" align="center" colspan="2">
+			<fieldset>
+			<legend><b>Function(I/B)</b></legend>
+				<table cellpadding="1" cellspacing="1" border="0">
+					<tr>
+						<td><button name="cdtProCcAnswerCall" onclick="callCubeMethod(this.name)" style="width:190">cdtProCcAnswerCall(应答电话)</button></td>
+						<td><button name="cdtProCcClearConnection" onclick="callCubeMethod(this.name)" style="width:190">cdtProCcClearConnection(挂机)</button></td>
+					</tr>
+					<tr>
+						<td><button name="cdtProCcHoldCall" onclick="callCubeMethod(this.name)" style="width:190">cdtProCcHoldCall(保持)</button></td>
+						<td><button name="cdtProCcRetrieveCall" onclick="callCubeMethod(this.name)" style="width:190">cdtProCcRetrieveCall(取保持)</button></td>
+					</tr>
+					<tr>
+						<td><button name="cdtProCcCallOut" onclick="callCubeMethod(this.name)" style="width:190">cdtProCcCallOut(呼出)</button></td>
+						<td><button name="cdtProCcTransferCall" onclick="callCubeMethod(this.name)" style="width:190">cdtProCcTransferCall(转接)</button></td>
+					</tr>
+				</table>
+			</fieldset>
+		</td>
+		<td valign="top" align="center">
+			<fieldset>
+			<legend><b>Agent Status</b></legend>
+				<table cellpadding="1" cellspacing="1" border="0">
+					<tr>
+						<td><button name="cdtProCcAgentLogin" onclick="callCubeMethod(this.name)" style="width:300">cdtProCcAgentLogin(坐席签入)</button></td>
+						<td><button name="cdtProCcAgentLogout" onclick="callCubeMethod(this.name)" style="width:300">cdtProCcAgentLogout(坐席签出)</button></td>
+					</tr>
+					<tr>
+						<td><button name="cdtProCcAgentReady" onclick="callCubeMethod(this.name)" style="width:300">cdtProCcAgentReady(坐席Ready)</button></td>
+						<td><button name="cdtProCcAgentNotReady" onclick="callCubeMethod(this.name)" style="width:300">cdtProCcAgentNotReady(坐席NotReady)</button></td>
+					</tr>
+					<tr>
+						<td><button name="cdtProCcAgentRest" onclick="callCubeMethod(this.name)" style="width:300">cdtProCcAgentRest(坐席休息)</button></td>
+						<td><button name="cdtProCcAgentAfterCallFinishing" onclick="callCubeMethod(this.name)" style="width:300">cdtProCcAgentAfterCallFinishing(	坐席后处理)</button></td>
+					</tr>
+				</table>
+			</fieldset>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="3">
+			<fieldset>
+			<legend><b>User Info</b></legend>
+				<table width="85%" height="80" cellpadding="1" cellspacing="1" border="0">
+					<tr>
+						<td align="right">UEI</td>
+						<td><input type="text" name="cubeUui" size="40" value="uei1234567890"></td>
+						<td align="right">Telephone No.</td>
+						<td><input type="text" name="cubePhoneNo" size="16" value="1452"></td>
+					</tr>
+					<tr>
+						<td align="right">AppendData</td> 
+						<td><input type="text" name="cubeUei" size="40" value="ap1234567890"></td>
+					</tr>
+				</table>
+			</fieldset>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" height="38" align="right" valign="middle"><button onclick="window.close()">Exit</button></td>
+	</tr>
+</table>
+</BODY>
+</HTML>
