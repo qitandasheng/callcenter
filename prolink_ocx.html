@@ -169,30 +169,47 @@ var proCcEvent_Recording = 5064;
 	switch(event)
 	{
 			case  proCcEvent_Transferred:
+			    alert("转接 成功");
 				break;
 			case  proCcEvent_Established:
+			    alert("正在通话");
 				break;
 			case  proCcEvent_ConnectionCleared:
+			    if (str == "self")
+				{
+                   alert("坐席自己挂断电话");
+				}else
+				{
+					alert("客户挂断电话");
+					}
 				break;
 			case  proCcEvent_CallCleared:
 				break;
 			case  proCcEvent_Conferenced:
+			    alert("三方会议成功");
 				break;
 			case  proCcEvent_Held:
+			    alert("电话已保持");
 				break;
 			case  proCcEvent_Delivered:
+			    alert("电话:" + str);
 				break;
 			case  proCcEvent_Diverted:
+			    alert("电话已重新导向");
 				break;
 			case  proCcEvent_Originated:
+			    alert("这个是呼出的第二个事件");
 				break;
 			case  proCcEvent_Failed:
+			    alert("失败");
 				break;
 			case  proCcEvent_ServiceInitiated:
+			    alert("这个是呼出的第一个事件");
 				break;
-			case  proCcEvent_NetworkReached:
+			case  proCcEvent_NetworkReached:			  
 				break;
 			case  proCcEvent_FetchHeld:
+			   alert("电话取保持成功");
 				break;
 			case  proCcEvent_Queued:
 				break;
@@ -255,6 +272,7 @@ var proCcEvent_Recording = 5064;
 			case  proCcEvent_IvrQueueConf:
 				break;
 			case  proCcEvent_Recording:
+			    alert("正在录音 recordID:" + str);
 				break;
 			default:
 				break;
