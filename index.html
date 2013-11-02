@@ -3,6 +3,7 @@
 <head>
       <title>DICC Call Center System</title>
     <link rel="stylesheet" type="text/css" href="js/ext/resources/css/ext-all.css" />
+	<script type="text/javascript" src="js/jquery-1.5.1.min.js"></script>
     <style type="text/css">
 	    html, body {
 	        font:normal 12px verdana;
@@ -65,10 +66,22 @@
 	</style>
 <script type="text/javascript" language="javascript"> 
 
+  window.onbeforeunload = onbeforeunload_handler; 
+    function onbeforeunload_handler()
+	{ 
+		  if(confirm("确定要离开系统吗？"))
+		 {
+			 call_server.cdtProCcAgentLogout();
+			 var ret = call_server.cdtProCcDisconnectFromServer();
+			 alert(ret);
+		  } 
+    }  
+
   /**连接服务器**/
   function loadServer(){
         var ret = call_server.cdtProCcInitInfo();
-		//var ret1 = call_server.cdtProCcConnectToServer();
+		var ret = call_server.cdtProCcConnectToServer();
+		var ret =call_server.cdtProCcAgentLogin();
 		alert(ret);
     }
 
@@ -97,24 +110,209 @@
 		 /**挂起**/
 	function sp_btntogHoldding()
 	{  
-		//var ret = call_server.cdtProCcTransferCall('800');
-		//alert(ret);
+		var ret = call_server.cdtProCcHoldCall();
+		alert(ret);
     }
 
 
 		/**离开**/
 	function sp_togLeavingClick()
 	{  
-		//var ret = call_server.cdtProCcTransferCall('800');
-		//alert(ret);
+		var ret = call_server.cdtProCcAgentRest(1);
+		alert(ret);
     }
+
+
+		/******************************************************************
+	Variable Name: 
+	Parameter  : 
+	Return Value :
+	Description : event kind
+	******************************************************************/
+var proCcEvent_Transferred = 5001;
+var proCcEvent_Established = 5002;
+var proCcEvent_ConnectionCleared = 5003;
+var proCcEvent_CallCleared = 5004;
+var proCcEvent_Conferenced = 5005;
+var proCcEvent_Held = 5006;
+var proCcEvent_Delivered = 5007;
+var proCcEvent_Diverted = 5008;
+var proCcEvent_Originated = 5009;
+var proCcEvent_Failed = 5010;
+var proCcEvent_ServiceInitiated = 5011;
+var proCcEvent_NetworkReached = 5012;
+var proCcEvent_FetchHeld = 5013;
+var proCcEvent_Queued = 5014;
+var proCcEvent_SpeakerVolume = 5020;
+var proCcEvent_MessageWaiting = 5021;
+var proCcEvent_AutoAnswer = 5022;
+var proCcEvent_DoNotDisturb = 5023;
+var proCcEvent_Forwarding = 5024;
+var proCcEvent_CallInformation = 5025;
+var proCcEvent_Mute = 5026;
+var proCcEvent_MicrophoneMute = 5027;
+var proCcEvent_Login = 5031;
+var proCcEvent_NotReady = 5032;
+var proCcEvent_Ready = 5033;
+var proCcEvent_AfterCallFinishing = 5034;
+var proCcEvent_AgentRest = 5035;
+var proCcEvent_Logout = 5036;
+var proCcEvent_OutOfService = 5041;
+var proCcEvent_BackInService = 5042;
+var proCcEvent_Private = 5051;
+var proCcEvent_ReviewEvent = 5052;
+var proCcEvent_StopEvent = 5053;
+var proCcEvent_VoiceAttributesChange = 5054;
+var proCcEvent_RecordEvent = 5055;
+var proCcEvent_PlayEvent = 5056;
+var proCcEvent_SuspendRecordEven = 5057;
+var proCcEvent_SuspendPlayEvent = 5058;
+var proCcEvent_RouteRequest = 5059;
+var proCcEvent_RouteEnd = 5060;
+var proCcEvnet_IvrRouteRequest = 5061;
+var proCcEvent_IvrRouteEnd = 5062;
+var proCcEvent_IvrQueueConf = 5063;
+var proCcEvent_Recording = 5064;
+
 
     </script>
 
+	<SCRIPT language="javascript" FOR="call_server" EVENT="GetEvent(event,str)">
+
+
+	// GetEvent
+	switch(event)
+	{
+			case  proCcEvent_Transferred:
+			    alert("转接 成功");
+				break;
+			case  proCcEvent_Established:
+			    alert("正在通话");
+				break;
+			case  proCcEvent_ConnectionCleared:
+			    if (str == "self")
+				{
+                   alert("坐席自己挂断电话");
+				}else
+				{
+					alert("客户挂断电话");
+					}
+				break;
+			case  proCcEvent_CallCleared:
+				break;
+			case  proCcEvent_Conferenced:
+			    alert("三方会议成功");
+				break;
+			case  proCcEvent_Held:
+			    alert("电话已保持");
+				break;
+			case  proCcEvent_Delivered:
+			    alert("电话:" + str);
+				break;
+			case  proCcEvent_Diverted:
+			    alert("电话已重新导向");
+				break;
+			case  proCcEvent_Originated:
+			    alert("这个是呼出的第二个事件");
+				break;
+			case  proCcEvent_Failed:
+			    alert("失败");
+				break;
+			case  proCcEvent_ServiceInitiated:
+			    alert("这个是呼出的第一个事件");
+				break;
+			case  proCcEvent_NetworkReached:			  
+				break;
+			case  proCcEvent_FetchHeld:
+			   alert("电话取保持成功");
+				break;
+			case  proCcEvent_Queued:
+				break;
+			case  proCcEvent_SpeakerVolume:
+				break;
+			case  proCcEvent_MessageWaiting:
+				break;
+			case  proCcEvent_AutoAnswer:
+				break;
+			case  proCcEvent_DoNotDisturb:
+				break;
+			case  proCcEvent_Forwarding:
+				break;
+			case  proCcEvent_CallInformation:
+				break;
+			case  proCcEvent_Mute:
+				break;
+			case  proCcEvent_MicrophoneMute:
+				break;
+			case  proCcEvent_Login:
+				break;
+			case  proCcEvent_NotReady:
+				break;
+			case  proCcEvent_Ready:
+				break;
+			case  proCcEvent_AfterCallFinishing:
+				break;
+			case  proCcEvent_AgentRest:
+			    imageUrl = 'images/top/softphone/togLeaving_02.jpg';
+		        $("img#sp_togLeaving").attr('src', imageUrl);
+				break;
+			case  proCcEvent_Logout:
+				break;
+			case  proCcEvent_OutOfService:
+				break;
+			case  proCcEvent_BackInService:
+				break;
+			case  proCcEvent_Private:
+				break;
+			case  proCcEvent_ReviewEvent:
+				break;
+			case  proCcEvent_StopEvent:
+				break;
+			case  proCcEvent_VoiceAttributesChange:
+				break;
+			case  proCcEvent_RecordEvent:
+				break;
+			case  proCcEvent_PlayEvent:
+				break;
+			case  proCcEvent_SuspendRecordEven:
+				break;
+			case  proCcEvent_SuspendPlayEvent:
+				break;
+			case  proCcEvent_RouteRequest:
+				break;
+			case  proCcEvent_RouteEnd:
+				break;
+			case  proCcEvnet_IvrRouteRequest:
+				break;
+			case  proCcEvent_IvrRouteEnd:
+				break;
+			case  proCcEvent_IvrQueueConf:
+				break;
+			case  proCcEvent_Recording:
+			    alert("正在录音 recordID:" + str);
+				break;
+			default:
+				break;
+	}
+		document.all.cubeResult.innerText = "Event["+event+"] str:<"+str+">..\n" + document.all.cubeResult.innerText;
+</SCRIPT>
+
+
 <body  onload="loadServer()">
-<div style="display:none;">
-	<input type="hidden" id="hidSPEventStatus"/>
-	<input type="hidden" id="hidAfterCallWork"/>
+<div >
+<table border="0" cellpadding="0" cellspacing="0" align="left">
+	<tr>
+		<td colspan="3">
+			<fieldset>
+				<legend><b>Result</b></legend>
+				<table cellpadding="1" cellspacing="1">
+					<tr>
+						<td><textArea id="cubeResult" rows="9" cols="90"></textArea></td>
+					</tr>
+				</table>
+			</fieldset>
+		</td>
+	</tr>
 </div>
 	<div class="top_content"> 
 		<input type='hidden' id="ctmpResult" rows="9" cols="90" /> 
